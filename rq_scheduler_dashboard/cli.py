@@ -8,7 +8,7 @@ from flask import Flask, Response, request
 
 from . import default_settings
 from .version import VERSION
-from .web import blueprint
+from .web import blueprint, setup_rq_connection
 
 
 def add_basic_auth(blueprint, username, password, realm='RQ Scheduler Dashboard'):
@@ -120,6 +120,7 @@ def run(
         app.config['REDIS_DB'] = redis_database
     if interval:
         app.config['RQ_POLL_INTERVAL'] = interval
+    setup_rq_connection(app)
     app.run(host=bind, port=port, debug=True)
 
 

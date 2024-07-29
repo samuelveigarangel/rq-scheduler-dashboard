@@ -35,8 +35,8 @@ blueprint = Blueprint(
 )
 
 
-@blueprint.before_app_first_request
-def setup_rq_connection():
+# @blueprint.before_app_first_request
+def setup_rq_connection(current_app):
     redis_url = current_app.config.get('REDIS_URL')
     if redis_url:
         current_app.redis_conn = from_url(redis_url)
